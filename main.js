@@ -1,4 +1,4 @@
-const firstRow = 'мама мыла раму';
+const firstRow = 'маама мыла раму';
 const secondRow = 'Собака друг человека';
 
 const countRow1 = getRow(firstRow);
