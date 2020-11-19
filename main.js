@@ -62,7 +62,7 @@ function changeHP(count,person) {
     renderHP(person);
 }
 function random(num) {
-        return Math.ceil(Math.random() * num)
+        return Math.ceil(Math.random() * num)//
 }
 
 init();
