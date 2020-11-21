@@ -20,13 +20,13 @@ const enemy = {
 
 $btn.addEventListener('click', function()  {
     //concole.log('Kick');
-    changeHP(random(20),character);
-    changeHP(random(20),enemy);  
+    changeHP.call(character,random(20));
+    changeHP.call(enemy,random(20));  
 });
 
 $btnStrong.addEventListener('click', function()  {
   
-    changeHP(random(30),enemy); 
+    changeHP.call(enemy,random(30)); 
     $btnStrong.disabled = true;   //Отключение кнопки  
 });
 
@@ -43,8 +43,7 @@ function renderHP(person){
 }
 
 function renderHPlife(person) {
-    const $character = document.getElementById('health-character');
-    console.log($character.innerText);
+    
     person.elHP.innerText = person.damageHP + '/' + person.defaultHP;
 
 }
@@ -54,15 +53,15 @@ function renderProgressbarHP(person) {
 
 }
 function changeHP(count,person) {
-    if(person.damageHP < count) {
-        person.damageHP = 0;
-        alert('Бедный ' + person.name + ' проиграл бой');
+    if(this.damageHP < count) {
+        this.damageHP = 0;
+        alert('Бедный ' + this.name + ' проиграл бой');
         $btn.disabled = true;
     } else {
-        person.damageHP -= count;
+        this.damageHP -= count;
     }
     
-    renderHP(person);
+    renderHP(this);
 }
 function random(num) {
         return Math.ceil(Math.random() * num)//
