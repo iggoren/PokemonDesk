@@ -1,18 +1,21 @@
-const $btn = document.getElementById('btn-kick');
-const $btnStrong = document.getElementById('btn-strong');
+function $getElById(Id) {
+    return document.getElementById(Id);
+}
+const $btn = $getElById('btn-kick');
+const $btnStrong = $getElById('btn-strong');
 const character = {
     name: 'Pikachu',
     defaultHP: 100,
     damageHP: 100,
-    elHP: document.getElementById('health-character'),
-    elProgressbar: document.getElementById('progressbar-character'),
+    elHP: $getElById('health-character'),
+    elProgressbar: $getElById('progressbar-character'),
     }
 const enemy = {
     name: 'Charmander',
     defaultHP: 100,
     damageHP: 100,
-    elHP: document.getElementById('health-enemy'),
-    elProgressbar: document.getElementById('progressbar-enemy'),
+    elHP: $getElById('health-enemy'),
+    elProgressbar: $getElById('progressbar-enemy'),
 }
 
 $btn.addEventListener('click', function()  {
