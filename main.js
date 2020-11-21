@@ -9,6 +9,7 @@ const character = {
     damageHP: 100,
     elHP: $getElById('health-character'),
     elProgressbar: $getElById('progressbar-character'),
+    changeHP: changeHP,
     }
 const enemy = {
     name: 'Charmander',
@@ -16,17 +17,18 @@ const enemy = {
     damageHP: 100,
     elHP: $getElById('health-enemy'),
     elProgressbar: $getElById('progressbar-enemy'),
+    changeHP: changeHP,
 }
 
 $btn.addEventListener('click', function()  {
     //concole.log('Kick');
-    changeHP.call(character,random(20));
-    changeHP.call(enemy,random(20));  
+    character.changeHP(random(20));
+    enemy.changeHP(random(20));  
 });
 
 $btnStrong.addEventListener('click', function()  {
   
-    changeHP.call(enemy,random(30)); 
+    enemy.changeHP(random(30)); 
     $btnStrong.disabled = true;   //Отключение кнопки  
 });
 
@@ -43,9 +45,7 @@ function renderHP(person){
 }
 
 function renderHPlife(person) {
-    
     person.elHP.innerText = person.damageHP + '/' + person.defaultHP;
-
 }
 
 function renderProgressbarHP(person) {
