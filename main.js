@@ -12,6 +12,7 @@ const character = {
     changeHP: changeHP,
     renderHP: renderHP,
     renderHPlife: renderHPlife,
+    renderProgressbarHP: renderProgressbarHP,
     }
 const enemy = {
     name: 'Charmander',
@@ -22,6 +23,7 @@ const enemy = {
     changeHP: changeHP,
     renderHP: renderHP,
     renderHPlife: renderHPlife,
+    renderProgressbarHP: renderProgressbarHP,
 }
 
 $btn.addEventListener('click', function()  {
@@ -44,28 +46,28 @@ function init() {
     enemy.renderHP();
 }
 function renderHP(){
-    renderHPlife(this);
-    renderProgressbarHP(this);
+    this.renderHPlife();
+    this.renderProgressbarHP();
 }
 
 function renderHPlife(person) {
-    person.elHP.innerText = person.damageHP + '/' + person.defaultHP;
+    this.elHP.innerText = this.damageHP + '/' + this.defaultHP;
 }
 
 function renderProgressbarHP(person) {
-    person.elProgressbar.style.width = person.damageHP + '%';
+    this.elProgressbar.style.width = this.damageHP + '%';
 
 }
 function changeHP(count,person) {
-    if(this.damageHP < count) {
+    this.damageHP -= count;
+
+    if (this.damageHP <= 0) {
         this.damageHP = 0;
         alert('Бедный ' + this.name + ' проиграл бой');
         $btn.disabled = true;
-    } else {
-        this.damageHP -= count;
     }
     
-    this.renderHP();
+        this.renderHP();
 }
 function random(num) {
         return Math.ceil(Math.random() * num)//
