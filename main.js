@@ -30,10 +30,6 @@ const enemy = {
     renderProgressbarHP: renderProgressbarHP,
 }
 
-//const { name, changeHP} = character;
-
-
-//console.log(name, changeHP);
 
 
 $btn.addEventListener('click', function()  {
@@ -72,7 +68,10 @@ function changeHP(count,person) {
     this.hp.current -= count;
     console.log(count)
     const log = this === enemy? generateLog(this, character): generateLog(this, enemy);
-    console.log(log);
+    const $p = document.createElement('p');
+    $p.innerText = log;
+    const $logs = document.querySelector('#logs');
+    $logs.insertBefore($p, $logs.children[0]);
 
     if (this.hp.current <= 0) {
         this.hp.current = 0;
@@ -88,7 +87,7 @@ function random(num) {
 
 function generateLog (firstPerson, secondPerson){
     const logs = [
-        `${firstPerson.name} вспомнил что-то важное, но неожиданно ${secondPerson.name}, не помня себя от испуга, ударил в предплечье врага.${firstPerson.count} [${firstPerson.hp.current}/${firstPerson.hp.total}]`,
+        `${firstPerson.name} вспомнил что-то важное, но неожиданно ${secondPerson.name}, не помня себя от испуга, ударил в предплечье врага. [${firstPerson.hp.current}/${firstPerson.hp.total}]`,
         `${firstPerson.name} поперхнулся, и за это ${secondPerson.name} с испугу приложил прямой удар коленом в лоб врага.[${firstPerson.hp.current}/${firstPerson.hp.total}]`,
         `${firstPerson.name} забылся, но в это время наглый ${secondPerson.name}, приняв волевое решение, неслышно подойдя сзади, ударил.[${firstPerson.hp.current}/${firstPerson.hp.total}]`,
         `${firstPerson.name} пришел в себя, но неожиданно ${secondPerson.name} случайно нанес мощнейший удар.[${firstPerson.hp.current}/${firstPerson.hp.total}]`,
