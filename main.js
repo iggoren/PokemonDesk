@@ -10,6 +10,8 @@ const character = {
     elHP: $getElById('health-character'),
     elProgressbar: $getElById('progressbar-character'),
     changeHP: changeHP,
+    renderHP: renderHP,
+    renderHPlife: renderHPlife,
     }
 const enemy = {
     name: 'Charmander',
@@ -18,6 +20,8 @@ const enemy = {
     elHP: $getElById('health-enemy'),
     elProgressbar: $getElById('progressbar-enemy'),
     changeHP: changeHP,
+    renderHP: renderHP,
+    renderHPlife: renderHPlife,
 }
 
 $btn.addEventListener('click', function()  {
@@ -36,12 +40,12 @@ $btnStrong.addEventListener('click', function()  {
 function init() {
     //concole.log('Start game!');
     
-    renderHP(character);
-    renderHP(enemy);
+    character.renderHP();
+    enemy.renderHP();
 }
-function renderHP(person){
-    renderHPlife(person);
-    renderProgressbarHP(person);
+function renderHP(){
+    renderHPlife(this);
+    renderProgressbarHP(this);
 }
 
 function renderHPlife(person) {
@@ -61,7 +65,7 @@ function changeHP(count,person) {
         this.damageHP -= count;
     }
     
-    renderHP(this);
+    this.renderHP();
 }
 function random(num) {
         return Math.ceil(Math.random() * num)//
