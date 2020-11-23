@@ -43,6 +43,12 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+#logs {
+    
+    font-weight: bold;
+    
+}
+
 
 .playground {
     max-width: 1024px;
