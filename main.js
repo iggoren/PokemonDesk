@@ -104,7 +104,9 @@ function generateLog (firstPerson, secondPerson){
 function counterClick() {
     let count = 1;
      return function() {
-       return count++;
+       if (count <=6) { 
+        return count++}
+        else $btn.disabled = true;
     }; 
 }
 $btn.addEventListener('click', function count1() {
