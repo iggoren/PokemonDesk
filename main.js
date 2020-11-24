@@ -31,9 +31,8 @@ const enemy = {
 }
 
 
-
 $btn.addEventListener('click', function()  {
-    //concole.log('Kick');
+    //console.log('Kick');
     character.changeHP(random(20));
     enemy.changeHP(random(20));  
 });
@@ -41,7 +40,7 @@ $btn.addEventListener('click', function()  {
 $btnStrong.addEventListener('click', function()  {
   
     enemy.changeHP(random(30)); 
-    $btnStrong.disabled = true;   //Отключение кнопки  
+    //$btnStrong.disabled = true;   //Отключение кнопки  
 });
 
 
@@ -66,7 +65,7 @@ function renderProgressbarHP(person) {
 }
 function changeHP(count,person) {
     this.hp.current -= count;
-    console.log(count)
+    //console.log(count)
     const log = this === enemy? generateLog(this, character): generateLog(this, enemy);
     const $p = document.createElement('p');
     $p.innerText = log;
@@ -101,6 +100,26 @@ function generateLog (firstPerson, secondPerson){
 
     return logs[random(logs.length) - 1];
 }
+//счетчик кликов
+function counterClick() {
+    let count = 1;
+     return function() {
+       return count++;
+    }; 
+}
+$btn.addEventListener('click', function count1() {
+    console.log(counter1());
+  });
 
+$btnStrong.addEventListener('click', function count2() {
+    console.log(counter2());
+  });
+  
+
+let counter1 = counterClick();
+let counter2 = counterClick();
+ 
+
+   
 
 init();
