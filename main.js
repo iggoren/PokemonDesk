@@ -30,19 +30,36 @@ const enemy = {
     renderProgressbarHP: renderProgressbarHP,
 }
 
+const  countBtnJolt = countClick(6,$btn);
+const  countBtnStrong = countClick(10,$btnStrong);
 
 $btn.addEventListener('click', function()  {
     //console.log('Kick');
-    character.changeHP(random(20));
-    enemy.changeHP(random(20));  
+    console.log(countBtnJolt());
+    character.changeHP(random(40,20));
+    enemy.changeHP(random(40,20));  
 });
 
 $btnStrong.addEventListener('click', function()  {
-  
-    enemy.changeHP(random(30)); 
-    //$btnStrong.disabled = true;   //Отключение кнопки  
+    console.log(countBtnStrong());
+    character.changeHP(random(20));
+    enemy.changeHP(random(20)); 
+     
 });
 
+//счетчик кликов
+function countClick(count = 6,el) {
+    const innerText = el.innerText;
+    el.innerText = `${innerText} (${count})`;
+     return function() {
+         count--;
+         if (count === 0) {
+             el.disabled = true;
+         }
+         el.innerText = `${innerText} (${count})`;
+              return count};
+        
+    }; 
 
 function init() {
     //concole.log('Start game!');
@@ -80,7 +97,8 @@ function changeHP(count,person) {
     
         this.renderHP();
 }
-function random(num) {
+function random(max, min = 0) {
+    const num = max - min;
     return Math.ceil(Math.random() * num);
 }
 
@@ -100,26 +118,7 @@ function generateLog (firstPerson, secondPerson){
 
     return logs[random(logs.length) - 1];
 }
-//счетчик кликов
-function counterClick() {
-    let count = 1;
-     return function() {
-       if (count <=6) { 
-        return count++}
-        else $btn.disabled = true;
-    }; 
-}
-$btn.addEventListener('click', function count1() {
-    console.log(counter1());
-  });
 
-$btnStrong.addEventListener('click', function count2() {
-    console.log(counter2());
-  });
-  
-
-let counter1 = counterClick();
-let counter2 = counterClick();
  
 
    
