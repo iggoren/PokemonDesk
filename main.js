@@ -1,12 +1,17 @@
 import Pokemon from "./pokemon.js";
-//import random from "./utils";
 
 const player1 = new Pokemon ({
     name: 'Pikachu',
     type: 'electric',
     hp: 500,
     selectors: 'character',
-})
+});
+const player2 = new Pokemon ({
+    name: 'Charmander',
+    type: 'fire',
+    hp: 450,
+    selectors: 'enemy',
+});
 
 console.log(player1);
 
@@ -15,46 +20,24 @@ function $getElById(Id) {
 }
 const $btn = $getElById('btn-kick');
 const $btnStrong = $getElById('btn-strong');
-const character = {
-    name: 'Pikachu',
-    hp: { 
-        current: 100,
-        total: 100,
-        },
-    elHP: $getElById('health-character'),
-    elProgressbar: $getElById('progressbar-character'),
-    changeHP: changeHP,
-    renderHP: renderHP,
-    renderHPlife: renderHPlife,
-    renderProgressbarHP: renderProgressbarHP,
-    }
-const enemy = {
-    name: 'Charmander',
-    hp: { 
-        current: 100, 
-        total: 100,
-        },
-    elHP: $getElById('health-enemy'),
-    elProgressbar: $getElById('progressbar-enemy'),
-    changeHP: changeHP,
-    renderHP: renderHP,
-    renderHPlife: renderHPlife,
-    renderProgressbarHP: renderProgressbarHP,
-}
+
 
 const  countBtnJolt = countClick(6,$btn);
-const  countBtnStrong = countClick(10,$btnStrong);
-
 $btn.addEventListener('click', function()  {
     countBtnJolt();
-    character.changeHP(random(60,20));
-    enemy.changeHP(random(60,20));  
+    player1.changeHP(random(60,20),function(count){
+        console.log('Some change after change HP', count);
+        console.log(generateLog(player1,player2,count));
+    });
+    player2.changeHP(random(60,20),function(count){
+        console.log('Some change after change HP', count);
+    }); 
 });
-
+const  countBtnStrong = countClick(10,$btnStrong);
 $btnStrong.addEventListener('click', function()  {
     countBtnStrong();
-    character.changeHP(random(20));
-    enemy.changeHP(random(20)); 
+    player1.changeHP(random(100));
+    player2.changeHP(random(100)); 
      
 });
 
@@ -72,32 +55,25 @@ function countClick(count = 6,el) {
         
     }; 
 
-function init() {
-    //concole.log('Start game!');
-    
-    character.renderHP();
-    enemy.renderHP();
-}
 function renderHP(){
     this.renderHPlife();
     this.renderProgressbarHP();
 }
 
-function renderHPlife() {
+function renderHPlife(){
     const { elHP,hp:{current,total}} = this;
     this.elHP.innerText = this.hp.current + '/' + this.hp.total;
 }
 
-function renderProgressbarHP() {
+function renderProgressbarHP(){
     const {hp:{current,total}, elProgressbar} = this;
     const procent = current / (total/100);
     this.elProgressbar.style.width = procent + '%';
 
 }
-function changeHP(count) {
+function changeHP(count){
     this.hp.current -= count;
-    //console.log(count)
-    const log = this === enemy? generateLog(this, character): generateLog(this, enemy);
+    const log = this === player2? generateLog(this, player1): generateLog(this, player2);
     const $p = document.createElement('p');
     $p.innerText = log;
     const $logs = document.querySelector('#logs');
@@ -137,4 +113,3 @@ function generateLog (firstPerson, secondPerson){
 
    
 
-init();
