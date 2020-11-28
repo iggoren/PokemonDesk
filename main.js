@@ -1,19 +1,21 @@
 import Pokemon from "./pokemon.js";
+import {pokemons} from "./pokemons.js";
 
+const pikachu = pokemons.find(item => item.name === 'Pikachu');
+//console.log(pikachu);
 const player1 = new Pokemon ({
-    name: 'Pikachu',
-    type: 'electric',
-    hp: 500,
-    selectors: 'character',
+       ...pikachu,
+       selectors: 'player1',
 });
+console.log(player1);
+
 const player2 = new Pokemon ({
     name: 'Charmander',
     type: 'fire',
     hp: 450,
-    selectors: 'enemy',
+    selectors: 'player2',
 });
 
-console.log(player1);
 
 function $getElById(Id) {
     return document.getElementById(Id);
@@ -21,9 +23,17 @@ function $getElById(Id) {
 const $btn = $getElById('btn-kick');
 const $btnStrong = $getElById('btn-strong');
 
+const  countBtnJolt = countClick(6,$btn);
+$btn.addEventListener('click', function()  {
+    countBtnJolt();
+    player1.changeHP(random(60,20),function(count){
+        console.log('Some change after change HP', count);
+        console.log(generateLog(player1,player2,count));
+    });
+    player2.changeHP(random(60,20),function(count){
+        console.log('Some change after change HP', count);
+    }); 
 
-
-  
 });
 const  countBtnStrong = countClick(10,$btnStrong);
 $btnStrong.addEventListener('click', function()  {
