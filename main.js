@@ -1,72 +1,79 @@
+import Pokemon from "./pokemon.js";
+
+const player1 = new Pokemon ({
+    name: 'Pikachu',
+    type: 'electric',
+    hp: 500,
+    selectors: 'character',
+});
+const player2 = new Pokemon ({
+    name: 'Charmander',
+    type: 'fire',
+    hp: 450,
+    selectors: 'enemy',
+});
+
+console.log(player1);
+
 function $getElById(Id) {
     return document.getElementById(Id);
 }
 const $btn = $getElById('btn-kick');
 const $btnStrong = $getElById('btn-strong');
-const character = {
-    name: 'Pikachu',
-    hp: { 
-        current: 100,
-        total: 100,
-        },
-    elHP: $getElById('health-character'),
-    elProgressbar: $getElById('progressbar-character'),
-    changeHP: changeHP,
-    renderHP: renderHP,
-    renderHPlife: renderHPlife,
-    renderProgressbarHP: renderProgressbarHP,
-    }
-const enemy = {
-    name: 'Charmander',
-    hp: { 
-        current: 100, 
-        total: 100,
-        },
-    elHP: $getElById('health-enemy'),
-    elProgressbar: $getElById('progressbar-enemy'),
-    changeHP: changeHP,
-    renderHP: renderHP,
-    renderHPlife: renderHPlife,
-    renderProgressbarHP: renderProgressbarHP,
-}
 
 
+const  countBtnJolt = countClick(6,$btn);
 $btn.addEventListener('click', function()  {
-    //console.log('Kick');
-    character.changeHP(random(20));
-    enemy.changeHP(random(20));  
+    countBtnJolt();
+    player1.changeHP(random(60,20),function(count){
+        console.log('Some change after change HP', count);
+        console.log(generateLog(player1,player2,count));
+    });
+    player2.changeHP(random(60,20),function(count){
+        console.log('Some change after change HP', count);
+    }); 
 });
-
+const  countBtnStrong = countClick(10,$btnStrong);
 $btnStrong.addEventListener('click', function()  {
-  
-    enemy.changeHP(random(30)); 
-    //$btnStrong.disabled = true;   //Отключение кнопки  
+    countBtnStrong();
+    player1.changeHP(random(100));
+    player2.changeHP(random(100)); 
+     
 });
 
+//счетчик кликов
+function countClick(count = 6,el) {
+    const innerText = el.innerText;
+    el.innerText = `${innerText} (${count})`;
+     return function() {
+         count--;
+         if (count === 0) {
+             el.disabled = true;
+         }
+         el.innerText = `${innerText} (${count})`;
+              return count};
+        
+    }; 
 
-function init() {
-    //concole.log('Start game!');
-    
-    character.renderHP();
-    enemy.renderHP();
-}
 function renderHP(){
     this.renderHPlife();
     this.renderProgressbarHP();
 }
 
-function renderHPlife(person) {
+function renderHPlife(){
+    const { elHP,hp:{current,total}} = this;
     this.elHP.innerText = this.hp.current + '/' + this.hp.total;
 }
 
-function renderProgressbarHP(person) {
-    this.elProgressbar.style.width = this.hp.current + '%';
+function renderProgressbarHP(){
+    const {hp:{current,total}, elProgressbar} = this;
+    const procent = current / (total/100);
+    this.elProgressbar.style.width = procent + '%';
 
 }
-function changeHP(count,person) {
+function changeHP(count){
     this.hp.current -= count;
-    //console.log(count)
-    const log = this === enemy? generateLog(this, character): generateLog(this, enemy);
+    const log = this === player2? generateLog(this, player1): generateLog(this, player2);
     const $p = document.createElement('p');
     $p.innerText = log;
     const $logs = document.querySelector('#logs');
@@ -80,9 +87,10 @@ function changeHP(count,person) {
     
         this.renderHP();
 }
-function random(num) {
+function random(max, min = 0) {
+    const num = max - min;
     return Math.ceil(Math.random() * num);
-}
+};
 
 function generateLog (firstPerson, secondPerson){
     const logs = [
@@ -100,28 +108,8 @@ function generateLog (firstPerson, secondPerson){
 
     return logs[random(logs.length) - 1];
 }
-//счетчик кликов
-function counterClick() {
-    let count = 1;
-     return function() {
-       if (count <=6) { 
-        return count++}
-        else $btn.disabled = true;
-    }; 
-}
-$btn.addEventListener('click', function count1() {
-    console.log(counter1());
-  });
 
-$btnStrong.addEventListener('click', function count2() {
-    console.log(counter2());
-  });
-  
-
-let counter1 = counterClick();
-let counter2 = counterClick();
  
 
    
 
-init();
