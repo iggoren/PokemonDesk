@@ -1,48 +1,45 @@
 import Pokemon from "./pokemon.js";
+import {pokemons} from "./pokemons.js";
 
+const pikachu = pokemons.find(item => item.name === 'Pikachu');
+//console.log(pikachu);
 const player1 = new Pokemon ({
-    name: 'Pikachu',
-    type: 'electric',
-    hp: 500,
-    selectors: 'character',
+       ...pikachu,
+       selectors: 'player1',
 });
+//console.log(player1);
+
 const player2 = new Pokemon ({
     name: 'Charmander',
     type: 'fire',
     hp: 450,
-    selectors: 'enemy',
+    selectors: 'player2',
 });
 
-console.log(player1);
+const $control = document.querySelector('.control');
+player1.attacks.forEach(item => {
+  console.log(item);
+  const $btn = document.createElement('button');
+  $btn.classList.add('button');
+  $btn.innerText = item.name;
+  const btnCount = countBtn(item.maxCount,$btn); 
+  
+        $btn.addEventListener('click', ()=> {
+            console.log('click button', $btn.innerText);
+            btnCount();
+        });
+      
+        $control.appendChild($btn);
+        
+});
 
-function $getElById(Id) {
+
+/*function $getElById(Id) {
     return document.getElementById(Id);
-}
-const $btn = $getElById('btn-kick');
-const $btnStrong = $getElById('btn-strong');
-
-
-const  countBtnJolt = countClick(6,$btn);
-$btn.addEventListener('click', function()  {
-    countBtnJolt();
-    player1.changeHP(random(60,20),function(count){
-        console.log('Some change after change HP', count);
-        console.log(generateLog(player1,player2,count));
-    });
-    player2.changeHP(random(60,20),function(count){
-        console.log('Some change after change HP', count);
-    }); 
-});
-const  countBtnStrong = countClick(10,$btnStrong);
-$btnStrong.addEventListener('click', function()  {
-    countBtnStrong();
-    player1.changeHP(random(100));
-    player2.changeHP(random(100)); 
-     
-});
+}*/
 
 //счетчик кликов
-function countClick(count = 6,el) {
+function countBtn(count = 6,el) {
     const innerText = el.innerText;
     el.innerText = `${innerText} (${count})`;
      return function() {
@@ -55,7 +52,7 @@ function countClick(count = 6,el) {
         
     }; 
 
-function renderHP(){
+/*function renderHP(){
     this.renderHPlife();
     this.renderProgressbarHP();
 }
@@ -86,7 +83,7 @@ function changeHP(count){
     }
     
         this.renderHP();
-}
+}*/
 function random(max, min = 0) {
     const num = max - min;
     return Math.ceil(Math.random() * num);
@@ -111,5 +108,4 @@ function generateLog (firstPerson, secondPerson){
 
  
 
-   
 

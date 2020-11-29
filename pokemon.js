@@ -5,7 +5,7 @@ class Selectors {
     }
 }
 class Pokemon extends Selectors {
-    constructor({name, hp, type, selectors}) {
+    constructor({name, hp, type, selectors,attacks = []}) {
        super(selectors);
         this.name = name;
         this.hp = {
@@ -13,6 +13,7 @@ class Pokemon extends Selectors {
             total: hp,
         };
         this.type = type;
+        this.attacks = attacks;
         this.renderHP();
 
     }
@@ -37,7 +38,9 @@ class Pokemon extends Selectors {
          
         if (this.hp.current <= 0) {
             this.hp.current = 0;
-     
+            alert('Бедный ' + this.name + ' проиграл бой');
+            $btn.disabled = true;
+           
         }
         
             this.renderHP();
