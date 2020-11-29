@@ -38,7 +38,9 @@ class Pokemon extends Selectors {
          
         if (this.hp.current <= 0) {
             this.hp.current = 0;
-     
+            alert('Бедный ' + this.name + ' проиграл бой');
+            $btn.disabled = true;
+           
         }
         
             this.renderHP();

@@ -22,44 +22,24 @@ player1.attacks.forEach(item => {
   const $btn = document.createElement('button');
   $btn.classList.add('button');
   $btn.innerText = item.name;
- // const btnCount = countBtn(item.maxCount,$btn); 
+  const btnCount = countBtn(item.maxCount,$btn); 
   
         $btn.addEventListener('click', ()=> {
             console.log('click button', $btn.innerText);
-            //btnCount();
-        })
+            btnCount();
+        });
+      
         $control.appendChild($btn);
+        
 });
 
 
-function $getElById(Id) {
+/*function $getElById(Id) {
     return document.getElementById(Id);
-}
-const $btn = $getElById('btn-kick');
-const $btnStrong = $getElById('btn-strong');
-
-const  btnCountJolt = countClick(6,$btn);
-$btn.addEventListener('click', function()  {
-    btnCountJolt();
-    player1.changeHP(random(60,20),function(count){
-        console.log('Some change after change HP', count);
-        console.log(generateLog(player1,player2,count));
-    });
-    player2.changeHP(random(60,20),function(count){
-        console.log('Some change after change HP', count);
-    }); 
-
-});
-/*const  countBtnStrong = countClick(10,$btnStrong);
-$btnStrong.addEventListener('click', function()  {
-    countBtnStrong();
-    player1.changeHP(random(100));
-    player2.changeHP(random(100)); 
-     
-});*/
+}*/
 
 //счетчик кликов
-function countClick(count = 6,el) {
+function countBtn(count = 6,el) {
     const innerText = el.innerText;
     el.innerText = `${innerText} (${count})`;
      return function() {
@@ -72,7 +52,7 @@ function countClick(count = 6,el) {
         
     }; 
 
-function renderHP(){
+/*function renderHP(){
     this.renderHPlife();
     this.renderProgressbarHP();
 }
@@ -103,7 +83,7 @@ function changeHP(count){
     }
     
         this.renderHP();
-}
+}*/
 function random(max, min = 0) {
     const num = max - min;
     return Math.ceil(Math.random() * num);
