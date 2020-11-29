@@ -39,9 +39,12 @@ body {
     height: 260px;
     position: relative;
     margin: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: auto auto 80px;
+    column-gap: 35px;
+    row-gap: 15px;
+    
 }
 #logs {
     
